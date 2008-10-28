@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'logger'
+require 'yaml'
 require 'eventmachine'
 require 'jabber_connection'
 
@@ -7,7 +8,7 @@ class Jabbercaster
 
   def initialize
     @conns = []
-    @config = YAML.load_file('./jabbercast.yml')
+    @config = YAML.load_file('./jabbercaster.yml')
     @logger = Logger.new( @config['logfile'] || STDOUT)
 
     # initialize jabber connection for each account
