@@ -3,18 +3,22 @@ require 'logger'
 require 'eventmachine'
 require 'jabber_connection'
 
-class Jabbercast
+class Jabbercaster
 
   def initialize
     @conns = []
     @config = YAML.load_file('./jabbercast.yml')
-    @config['accounts'].each{ |account, config| @conns << JabberConnection.new(config) }
     @logger = Logger.new( @config['logfile'] || STDOUT)
+
+    # initialize jabber connection for each account
+    @config['accounts'].each do |account, config|
+      @logger.info{ "Initializing #{account} jabber broadcast"}
+      @conns << JabberConnection.new(config)
+    end
   end
   
   # start forwarding messages
   def start
-    @logger.info { "Starting jabber broadcasts for: #{@config['accounts'].keys.inspect}"}
     EM.run do
       EM::PeriodicTimer.new( @config['polling_delay'] || 2) do
         @conns.each do |conn|
@@ -24,10 +28,7 @@ class Jabbercast
     end
 
   rescue Exception => e
-    @logger.info{"#{e.message} (#{e.class.name})\n" + e.backtrace().join("\n") + "\n"} if @logger
+    @logger.info {"#{e.message} (#{e.class.name})\n" + e.backtrace().join("\n") + "\n"}
   end
   
 end
-
-jc = Jabbercast.new
-jc.start
