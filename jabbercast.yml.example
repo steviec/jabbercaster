@@ -1,0 +1,16 @@
+logfile: jabbercaster.log
+polling_delay: 5
+accounts:
+    techteam:
+        email: animoto.techteam@gmail.com
+        password: tralala
+        addresses: 
+            - stevie@animoto.com
+			- jeff@animoto.com
+			- dan@animoto.com
+    designteam:
+        email: animoto.designteam@gmail.com
+        password: dingdingdong
+        addresses:
+            - tom@animoto.com
+			- matt@animoto.com
