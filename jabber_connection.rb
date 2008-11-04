@@ -4,12 +4,13 @@ require 'xmpp4r-simple'
 class JabberConnection
   attr_accessor :connection, :authorized_targets
 
-  def initialize(config)
+  def initialize(config, logger=nil)
     email = config['email']
     password = config['password']
     @connection = Jabber::Simple.new(email, password)
     @authorized_targets = []
     @targets = config['addresses']
+    @logger = logger || Logger.new(STDOUT)
     
     return "Could not connect to jabber server" unless @connection.connected?
     @connection.accept_subscriptions = true
@@ -26,7 +27,8 @@ class JabberConnection
 
     # forward all messages received
     @connection.received_messages do |msg|
-      email = msg.from.to_s[/(.*)\//, 1] #everything before the "/"
+      @logger.info { "#{msg.from.to_s}: #{msg.body}" }
+      email = msg.from.to_s[/(.*)\//, 1] || msg.from.to_s
       nickname = email[/(.*)\@/,1]   #everything before the "@"
 
       # don't send message back to sender

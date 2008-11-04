@@ -14,7 +14,7 @@ class Jabbercaster
     # initialize jabber connection for each account
     @config['accounts'].each do |account, config|
       @logger.info{ "Initializing #{account} jabber broadcast"}
-      @conns << JabberConnection.new(config)
+      @conns << JabberConnection.new(config, @logger)
     end
   end
   
