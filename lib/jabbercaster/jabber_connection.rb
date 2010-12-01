@@ -1,5 +1,7 @@
 require 'rubygems'
 require 'xmpp4r-simple'
+require 'jabbercaster/rexml_patch.rb'
+require 'jabbercaster/jabber_simple_monkey_patch'
 
 class JabberConnection
   attr_accessor :connection, :authorized_targets
@@ -7,7 +9,9 @@ class JabberConnection
   def initialize(config, logger=nil)
     email = config['email']
     password = config['password']
-    @connection = Jabber::Simple.new(email, password)
+    @connection = Jabber::Simple.new(email, password) do |c|
+      puts c.inspect 
+    end
     @authorized_targets = []
     @targets = config['addresses']
     @logger = logger || Logger.new(STDOUT)
