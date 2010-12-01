@@ -14,7 +14,6 @@ module Jabber
     #puts "hi"
     alias_method :old_initialize, :initialize
     def initialize(jid, password, status = nil, status_message = "Available")
-      puts "HELLO"
       @host = "talk.google.com"
       old_initialize(jid, password, status, status_message)
     end

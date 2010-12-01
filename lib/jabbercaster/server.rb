@@ -24,8 +24,8 @@ class Jabbercaster
     end
 
     @logger = Logger.new( config['logfile'] || STDOUT)
-    Jabber.logger = self.logger
-    Jabber.debug = true
+    #Jabber.logger = self.logger
+    #Jabber.debug = true
 
     # initialize jabber connection for each account
     config['accounts'].each do |account, account_config|
