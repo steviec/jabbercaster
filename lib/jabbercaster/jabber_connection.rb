@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'xmpp4r-simple'
-require 'jabbercaster/rexml_patch.rb'
-require 'jabbercaster/jabber_simple_monkey_patch'
+require 'jabbercaster/patches/rexml_patch.rb'
+require 'jabbercaster/patches/jabber_simple_monkey_patch'
 
 class JabberConnection
   attr_accessor :connection, :authorized_targets
