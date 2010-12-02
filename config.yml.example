@@ -1,0 +1,10 @@
+---
+admin_user: "admin@mydomain.com"
+admin_password: "password"
+syndication_groups:
+  "some_group@mydomain.com":
+    password: "group password"
+    except:
+      - "dont_include_me_in_syndication@mydomain.com" 
+  "other_group@mydomain.com":
+    password: "foo"
